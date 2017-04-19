@@ -1,0 +1,96 @@
+
+
+<html ng-app="tictac">
+<head>
+<head>
+    <title>TicTacToe</title>
+    
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+    <script src="scripts/app.js"></script>
+	
+	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/mystyles.css"/>
+</head>
+
+<div ng-controller="TicTacController" class="container game-container">
+
+    <div class="row" ng-hide="gameInProgress || gameLoading">
+		<div class="row form-group">
+			<div class="col-md-3 col-md-offset-3 my-label">
+				<label >Choose Symbol</button>
+			</div>
+			<div class="col-md-3">
+				<div class="btn-group" role="group" aria-label="...">
+				  <button type="button" ng-click="onSelectSymbol('x')" class="btn" ng-class="{true:'btn-success',false:'btn-default'}[player.symbol=='x']">X</button>
+				  <button type="button" ng-click="onSelectSymbol('o')" class="btn" ng-class="{true:'btn-success',false:'btn-default'}[player.symbol=='o']">O</button>
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="row form-group">
+			<div class="col-md-3 col-md-offset-3 my-label">
+				<label >I Start First</button>
+			</div>
+			<div class="col-md-3">
+				<div class="btn-group" role="group" aria-label="...">
+				  <button type="button" ng-click="onSelectStart(true)" class="btn" ng-class="{true:'btn-success',false:'btn-default'}[player.start==true]">Yes</button>
+				  <button type="button" ng-click="onSelectStart(false)" class="btn" ng-class="{true:'btn-success',false:'btn-default'}[player.start==false]">No</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row form-group">
+			<div class="col-md-3 col-md-offset-6">
+				<button class="btn btn-success center-align" ng-click="startGame()">Start Game</button>
+			</div>
+		</div>
+		
+    </div>
+	
+	<div class="row" ng-show="gameLoading">
+		<div class="col-md-3 col-md-offset-5" style="padding-left:60;">
+			<span class="alert alert-info">Loading...</span>
+		</div>
+	</div>
+	
+	
+    <div class="row" ng-show="gameInProgress">
+        <div class="myboard col-md-3 col-md-offset-5">
+            <div class="row boardrow" ng-repeat="row in myboard track by $index">
+                <div ng-click="onUserClick($parent.$index,$index)" class="col-md-4 myboardcell" ng-repeat="col in row track by $index">
+                    <span class="mycell">
+                        <span class="mycellbtn" ng-disabled="col!=null" ng-class="matchArray[$parent.$index][$index]">{{col}}</span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+		
+		<div class="gamestats col-md-3 col-md-offset-1">
+			<div ng-hide="winnerSymbol.length>0">
+				<span class="alert alert-info" ng-show="botThinking">Bot is thinking..</span>
+				<span class="alert alert-warning" ng-show="!botThinking && !gameDrawn">Your turn!!</span>
+			</div>
+            
+			<div ng-show="winnerSymbol.length>0 || gameDrawn">
+				<span class="alert alert-danger" ng-show="!gameDrawn && winnerSymbol!=player.symbol">Bot Won!</span>
+				<span class="alert alert-warning" ng-show="gameDrawn">Game drawn</span>
+				<span class="alert alert-success" ng-show="!gameDrawn && winnerSymbol==player.symbol">You Won!!!!</span><br><br><br>
+				
+				<button class="btn btn-success center-align" ng-click="resetGameSettings()">Start Again</button>
+			</div>
+			
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

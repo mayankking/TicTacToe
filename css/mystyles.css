@@ -1,0 +1,47 @@
+.myboard{
+     width:220px;
+     height:200px;
+}
+
+
+.myboard .myboardcell{
+
+    border:1px solid grey;
+    cursor:pointer;
+    height: 60px;
+    font-size: 42px;
+}
+
+.myboard .myboardcell:hover{
+    background:#fefefe;
+
+}
+
+.match-color{
+	color:green;
+}
+
+.mycellbtn{
+    background:transparent;
+}
+
+.my-label{
+	text-align:right;
+	padding-top:6px;
+}
+
+.mycellbtn.info{
+    background:blue;
+}
+
+.mycellbtn.danger{
+    background:red;
+}
+
+.game-container{
+	margin-top:100px;
+}
+
+.gamestats{
+	margin-top:12px;
+}
